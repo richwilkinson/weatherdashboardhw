@@ -21,5 +21,31 @@ searchCity = (cityname) => {
         var humP = $("<p>").text("Humidity: " + response.main.humidity);
         var windP = $("<p>").text("Wind Speed: " + response.wind.speed);
         var currentweather = response.weather[0].main;
-    })
-}
+
+        if (currentweather === "Rain") {
+            var currentIcon = $('<img>').attr("src", "");
+            currentIcon.attr("style", "height: 60px; width: 60px");
+        } else if (currentweather=== "Clouds") {
+            var currentIcon = $('<img>').attr("src", "");
+            currentIcon.attr("style", "height: 60px; width: 60px");
+        } else if (currentweather === "Clear") {
+            var currentIcon = $('<img>').attr("src", "");
+            currentIcon.attr("style", "height: 60px; width: 60px");
+        }
+         else if (currentweather === "Drizzle") {
+            var currentIcon = $('<img>').attr("src", "");
+            currentIcon.attr("style", "height: 60px; width: 60px");
+        }
+         else if (currentweather === "Snow") {
+            var currentIcon = $('<img>').attr("src", "");
+            currentIcon.attr("style", "height: 60px; width: 60px");
+        }
+        
+        var newDiv = $('<div>');
+
+        newDiv.append(displayMainDate, currentIcon, tempEL, humEl, windEl);
+
+        $("#current").html(newDiv);
+
+    });
+};
