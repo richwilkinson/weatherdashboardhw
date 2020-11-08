@@ -25,9 +25,9 @@ userSearch = (cityname) => {
  
         let cityText = $("<h2>").text(response.name);
         let displayCurrDate = cityText.append(" " + currDate);
-        let elemTemp = $("<p>").text("Tempraturer: " + response.main.temp);
+        let elemTemp = $("<p>").text("Temp: " + response.main.temp);
         let elemHumid = $("<p>").text("Humidity: " + response.main.humidity);
-        let elemWind = $("<p>").text("Wind Speed: " + response.wind.speed);
+        let elemWind = $("<p>").text("Wind Velocity: " + response.wind.speed);
         let weather = response.weather[0].main;
 
         if (weather === "Rain") {
@@ -92,7 +92,7 @@ let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92
         
         for (let i = 0; i < results.length; i += 8) {
             
-            let forecastDiv = $("<div class='card shadow-lg text-white bg-primary mx-auto mb-10 p-2' style='width: 8.5rem; height: 11rem;'>");
+            let forecastDiv = $("<div class='card shadow-lg text-white bg-transparent mx-auto mb-10 p-2' style='width: 8.5rem; height: 11rem;'>");
             
             let date = results[i].dt_txt;
             let temp = results[i].main.temp;

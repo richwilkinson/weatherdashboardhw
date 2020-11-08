@@ -1,3 +1,11 @@
 .container {
     margin-top: auto;
 }
+
+body {
+    background-image: url(weather.png);
+}
+
+h2 {
+    color: azure;
+}
