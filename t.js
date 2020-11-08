@@ -20,9 +20,11 @@ userSearch = (cityname) => {
         console.log(response);
         console.log(queryURL);
         
-        $("#present").empty();
+        $("#current").empty();
        let currDate = moment().format('L');
  
+
+        
         let cityText = $("<h2>").text(response.name);
         let displayCurrDate = cityText.append(" " + currDate);
         let elemTemp = $("<p>").text("Tempraturer: " + response.main.temp);
@@ -53,8 +55,10 @@ userSearch = (cityname) => {
 
         newDiv.append(displayCurrDate, weatherIcon, elemTemp, elemHumid, elemWind);
 
-        $("#present").html(newDiv);
+        $("#current").html(newDiv);
         
+
+
 let latPush = response.coord.lat;
 let lonPush = response.coord.lon;
 let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92206da3aa90cc41c13ca56&lat=" + latPush  + "&lon=" + lonPush;
@@ -63,23 +67,18 @@ let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92
             url: queryURLUV,
             method: 'GET'
         }).then(function (response) {
-            $('#uv-display').empty();
+            $('#uvl-display').empty();
             var uvresults = response.value;
-
-            if (uvresults <= 2) {
-                var uvText = $("<button class='btn bg-primary'>").text("UV Index: " + uvresults);
-            } else if (uvresults <= 4) {
-                var uvText = $("<button class='btn bg-success'>").text("UV Index: " + uvresults);
-            } else if (uvresults <= 8) {
-                var uvText = $("<button class='btn bg-warning'>").text("UV Index: " + uvresults);
-            } else if (uvresults <= 13) {
-                var uvText = $("<button class='btn bg-danger'>").text("UV Index: " + uvresults);
-            }
             
-            $('#uv-display').html(uvText);
+            var uvText = $("<button class='btn bg-success'>").text("UV Index: " + uvresults);
+      
+            $('#uvl-display').html(uvText);
     
         });
     });
+
+
+
 
     $.ajax({
         url: queryURLforcast,
@@ -94,14 +93,16 @@ let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92
             
             let forecastDiv = $("<div class='card shadow-lg text-white bg-primary mx-auto mb-10 p-2' style='width: 8.5rem; height: 11rem;'>");
             
+            
             let date = results[i].dt_txt;
             let temp = results[i].main.temp;
-            let dateS = date.substr(0,10)
-            let humid = results[i].main.humidity;
+            let setD = date.substr(0,10)
+            let hum = results[i].main.humidity;
    
-            let textDate = $("<h5 class='card-title'>").text(dateS);
+            
+            let textDate = $("<h5 class='card-title'>").text(setD);
             let tDisplay = $("<p class='card-text'>").text("Temp: " + temp);;
-            let hDisplay = $("<p class='card-text'>").text("Humidity " + humid);;
+            let hDisplay = $("<p class='card-text'>").text("Humidity " + hum);;
 
             let weather = results[i].weather[0].main
 
@@ -125,6 +126,7 @@ let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92
                 icon.attr("style", "height: 40px; width: 40px");
             }
 
+            
             forecastDiv.append(textDate);
             forecastDiv.append(icon);
             forecastDiv.append(tDisplay);
@@ -133,15 +135,20 @@ let queryURLUV = "https://api.openweathermap.org/data/2.5/uvi?&appid=ecc0be5fd92
         }
 
     });
+
+
+
 }
 renderStats();
 
-$("#choose-city").on("click", function (event) {
+
+$("#select-city").on("click", function (event) {
     
     event.preventDefault();
     
-    var cityInput = $("#city-text").val().trim();
+    var cityInput = $("#city-input").val().trim();
 
+    
     var userContent = $(this).siblings("input").val();
     var cityarr = [];
     cityarr.push(userContent);
@@ -150,6 +157,9 @@ $("#choose-city").on("click", function (event) {
     userSearch(cityInput);
     renderStats();
 });
+
+
+
 
 $("#searches").on('click', '.btn', function(event) {
 event.preventDefault();
